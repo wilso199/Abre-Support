@@ -30,7 +30,7 @@
 		echo "<div class='page_container page_container_limit mdl-shadow--4dp'>";
 		echo "<div class='page'>";
 			
-			echo "<form id='form-support' method='post' enctype='multipart/form-data' action='modules/support/submit_process.php'>";
+			echo "<form id='form-support' method='post' enctype='multipart/form-data' action='modules/".basename(__DIR__)."/submit_process.php'>";
 				  echo "<div class='row'><div class='col l12'><h4>Report a 1-1 Device Problem</h4></div></div>";
 				  
 				  echo "<div class='row'>";

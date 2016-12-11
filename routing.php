@@ -28,10 +28,10 @@
 			    $( '#loader' ).show();
 			    $( '#titletext' ).text('Support');
 			    document.title = 'Support';
-				$( '#content_holder' ).load( 'modules/support/submit.php', function() { init_page(); });
+				$( '#content_holder' ).load( 'modules/".basename(__DIR__)."/submit.php', function() { init_page(); });
 				
 				$( '#navigation_top' ).show();
-				$( '#navigation_top' ).load( 'modules/support/menu.php', function() {	
+				$( '#navigation_top' ).load( 'modules/".basename(__DIR__)."/menu.php', function() {	
 					$( '#navigation_top' ).show();
 					$('.tab_1').addClass('tabmenuover');
 				});	
@@ -43,10 +43,10 @@
 			    $( '#loader' ).show();
 			    $( '#titletext' ).text('Support');
 			    document.title = 'Support';
-				$( '#content_holder' ).load( 'modules/support/history.php', function() { init_page(); });
+				$( '#content_holder' ).load( 'modules/".basename(__DIR__)."/history.php', function() { init_page(); });
 				
 				$( '#navigation_top' ).show();
-				$( '#navigation_top' ).load( 'modules/support/menu.php', function() {	
+				$( '#navigation_top' ).load( 'modules/".basename(__DIR__)."/menu.php', function() {	
 					$( '#navigation_top' ).show();
 					$('.tab_2').addClass('tabmenuover');
 				});	
@@ -58,10 +58,10 @@
 			    $( '#loader' ).show();
 			    $( '#titletext' ).text('Support');
 			    document.title = 'Support';
-				$( '#content_holder' ).load( 'modules/support/queue.php', function() { init_page(); });
+				$( '#content_holder' ).load( 'modules/".basename(__DIR__)."/queue.php', function() { init_page(); });
 				
 				$( '#navigation_top' ).show();
-				$( '#navigation_top' ).load( 'modules/support/menu.php', function() {	
+				$( '#navigation_top' ).load( 'modules/".basename(__DIR__)."/menu.php', function() {	
 					$( '#navigation_top' ).show();
 					$('.tab_3').addClass('tabmenuover');
 				});	
@@ -73,10 +73,10 @@
 			    $( '#loader' ).show();
 			    $( '#titletext' ).text('Support');
 			    document.title = 'Support';
-				$( '#content_holder' ).load( 'modules/support/view.php?id='+name, function() { init_page(); });
+				$( '#content_holder' ).load( 'modules/".basename(__DIR__)."/view.php?id='+name, function() { init_page(); });
 				
 				$( '#navigation_top' ).show();
-				$( '#navigation_top' ).load( 'modules/support/menu.php', function() {	
+				$( '#navigation_top' ).load( 'modules/".basename(__DIR__)."/menu.php', function() {	
 					$( '#navigation_top' ).show();
 				});	
 		    },";	    

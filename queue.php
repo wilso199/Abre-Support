@@ -48,7 +48,7 @@
 
 <script>
 	
-	$("#results").load('modules/support/results.php', function(){	$("#topicLoader").hide();	});
+	$("#results").load('modules/<?php echo basename(__DIR__); ?>/results.php', function(){	$("#topicLoader").hide();	});
 	
 	//Press the search data
 	$("#topicLoader").show();
@@ -57,7 +57,7 @@
 	{
 		event.preventDefault();
 		var search = $("#searchquery").val();
-		$("#results").load('modules/support/results.php?searchquery='+search, function(){	
+		$("#results").load('modules/<?php echo basename(__DIR__); ?>/results.php?searchquery='+search, function(){	
 			$("#topicLoader").hide();	
 			var notification = document.querySelector('.mdl-js-snackbar');
 			var data = { message: 'Searching...', timeout: 1000 };
