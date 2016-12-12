@@ -66,7 +66,7 @@
 	$pageorder=999;
 	$pagetitle="1-1 Device Support";
 	$description="A student ticketing system for 1-1 devices.";
-	$version="1.0.3";
+	$version="1.0.4";
 	$repo="abreio/Abre-Support";
 	$pageicon="laptop_chromebook";
 	$pagepath="support";
