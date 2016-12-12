@@ -46,12 +46,27 @@
   		if ($db->multi_query($sql) === TRUE) { }
 	}
 	
+	//Setup tables if new module
+	if(!$resultbooks = $db->query("SELECT * FROM support_users"))
+	{
+		$sql = "CREATE TABLE `support_users` (
+  `id` int(11) NOT NULL,
+  `email` text NOT NULL,
+  `building` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+		$sql .= "ALTER TABLE `support_users`
+  ADD PRIMARY KEY (`id`);";
+		$sql .= "ALTER TABLE `support_users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
+  		if ($db->multi_query($sql) === TRUE) { }
+	}
+	
 	$pageview=1;
 	$drawerhidden=0;
 	$pageorder=999;
 	$pagetitle="1-1 Device Support";
 	$description="A student ticketing system for 1-1 devices.";
-	$version="1.0.1";
+	$version="1.0.3";
 	$repo="abreio/Abre-Support";
 	$pageicon="laptop_chromebook";
 	$pagepath="support";
