@@ -22,51 +22,49 @@
 	require(dirname(__FILE__) . '/../../core/abre_dbconnect.php');	
 	require_once(dirname(__FILE__) . '/../../core/abre_functions.php');	
 	
-	//Setup tables if new module
-	if(!$resultbooks = $db->query("SELECT * FROM support"))
+	//Check for support table
+	if(!$db->query("SELECT * FROM support"))
 	{
-		$sql = "CREATE TABLE `support` (
-  `id` int(11) NOT NULL,
-  `Submission_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `Name` text NOT NULL,
-  `Email` text NOT NULL,
-  `Asset_Number` text NOT NULL,
-  `Building` text NOT NULL,
-  `Room` text NOT NULL,
-  `Cart_Number` text NOT NULL,
-  `Cart_Location` text NOT NULL,
-  `Problem` text NOT NULL,
-  `Solution` text NOT NULL,
-  `Status` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
-		$sql .= "ALTER TABLE `support`
-  ADD PRIMARY KEY (`id`);";
-		$sql .= "ALTER TABLE `support`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
-  		if ($db->multi_query($sql) === TRUE) { }
+		$sql = "CREATE TABLE `support` (`id` int(11) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+		$sql .= "ALTER TABLE `support` ADD PRIMARY KEY (`id`);";
+		$sql .= "ALTER TABLE `support` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";	
+		mysqli_multi_query($db, $sql);
 	}
 	
-	//Setup tables if new module
-	if(!$resultbooks = $db->query("SELECT * FROM support_users"))
+	if(!$db->query("SELECT Submission_Time FROM support"))
 	{
-		$sql = "CREATE TABLE `support_users` (
-  `id` int(11) NOT NULL,
-  `email` text NOT NULL,
-  `building` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
-		$sql .= "ALTER TABLE `support_users`
-  ADD PRIMARY KEY (`id`);";
-		$sql .= "ALTER TABLE `support_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
-  		if ($db->multi_query($sql) === TRUE) { }
+		$sql = "ALTER TABLE `support` ADD `Submission_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;";
+  		mysqli_multi_query($db, $sql);
 	}
+	
+	
+	
+	//Check for support Submission_Time column
+	/*
+	if(!$db->query("SELECT Submission_Time FROM support"))
+	{
+		$sql = "ALTER TABLE `support` ADD `Submission_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;";
+		$db->multi_query($sql);
+	}
+	*/
+	
+	//Check for support users table
+	/*
+	if(!$db->query("SELECT * FROM support_users"))
+	{
+		$sql = "CREATE TABLE `support_users` (`id` int(11) NOT NULL, `email` text NOT NULL, `building` text NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+		$sql .= "ALTER TABLE `support_users` ADD PRIMARY KEY (`id`);";
+		$sql .= "ALTER TABLE `support_users` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
+  		$db->multi_query($sql);
+	}
+	*/
 	
 	$pageview=1;
 	$drawerhidden=0;
 	$pageorder=999;
 	$pagetitle="1-1 Device Support";
 	$description="A student ticketing system for 1-1 devices.";
-	$version="1.0.4";
+	$version="1.0.5";
 	$repo="abreio/Abre-Support";
 	$pageicon="laptop_chromebook";
 	$pagepath="support";
