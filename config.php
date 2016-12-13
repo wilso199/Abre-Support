@@ -19,45 +19,10 @@
 	
 	//Required configuration files
 	require_once(dirname(__FILE__) . '/../../core/abre_verification.php');
-	require(dirname(__FILE__) . '/../../core/abre_dbconnect.php');	
-	require_once(dirname(__FILE__) . '/../../core/abre_functions.php');	
+	require_once(dirname(__FILE__) . '/../../core/abre_functions.php');
 	
-	//Check for support table
-	if(!$db->query("SELECT * FROM support"))
-	{
-		$sql = "CREATE TABLE `support` (`id` int(11) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
-		$sql .= "ALTER TABLE `support` ADD PRIMARY KEY (`id`);";
-		$sql .= "ALTER TABLE `support` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";	
-		mysqli_multi_query($db, $sql);
-	}
-	
-	if(!$db->query("SELECT Submission_Time FROM support"))
-	{
-		$sql = "ALTER TABLE `support` ADD `Submission_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;";
-  		mysqli_multi_query($db, $sql);
-	}
-	
-	
-	
-	//Check for support Submission_Time column
-	/*
-	if(!$db->query("SELECT Submission_Time FROM support"))
-	{
-		$sql = "ALTER TABLE `support` ADD `Submission_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;";
-		$db->multi_query($sql);
-	}
-	*/
-	
-	//Check for support users table
-	/*
-	if(!$db->query("SELECT * FROM support_users"))
-	{
-		$sql = "CREATE TABLE `support_users` (`id` int(11) NOT NULL, `email` text NOT NULL, `building` text NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
-		$sql .= "ALTER TABLE `support_users` ADD PRIMARY KEY (`id`);";
-		$sql .= "ALTER TABLE `support_users` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
-  		$db->multi_query($sql);
-	}
-	*/
+	//Check for installation
+	if(superadmin()){ require('installer.php'); }
 	
 	$pageview=1;
 	$drawerhidden=0;
