@@ -21,7 +21,7 @@
 	require_once(dirname(__FILE__) . '/../../core/abre_verification.php');
 	require_once(dirname(__FILE__) . '/../../core/abre_functions.php');
 	
-	if(superadmin() && !file_exists("modules/Abre-Support/setup.txt"))
+	if(superadmin() && !file_exists("$portal_path_root/modules/Abre-Support/setup.txt"))
 	{
 		//Check for support table
 		require(dirname(__FILE__) . '/../../core/abre_dbconnect.php');	
@@ -163,7 +163,7 @@
 		$db->close();
 		
 		//Write the Setup File
-		$myfile = fopen("modules/Abre-Support/setup.txt", "w");
+		$myfile = fopen("$portal_path_root/modules/Abre-Support/setup.txt", "w");
 		fwrite($myfile, '');
 		fclose($myfile);
 	}
