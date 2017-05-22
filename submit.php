@@ -26,6 +26,70 @@
 	//Display User Profile Information
 	if($pageaccess==1)
 	{	
+		
+		
+		//POST request for login authentication
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, "https://vartek.sysaidit.com/api/v1/login");
+		$data = array("user_name" => "dmolloy", "password" => "equinox05");
+		$data_string = json_encode($data);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Content-Length: ' . strlen($data_string)));
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_VERBOSE, 1);
+		curl_setopt($ch, CURLOPT_HEADER, 1);
+		$result = curl_exec($ch);
+
+		//Response Body and Headers
+		$header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+		$header = substr($result, 0, $header_size);
+		$body = substr($result, $header_size);
+		
+		curl_close ($ch);
+		
+		//Get the Session
+		function get_string_between($string, $start, $end)
+		{
+		    $string = ' ' . $string;
+		    $ini = strpos($string, $start);
+		    if ($ini == 0) return '';
+		    $ini += strlen($start);
+		    $len = strpos($string, $end, $ini) - $ini;
+		    return substr($string, $ini, $len);
+		}
+		$session = get_string_between($header, 'Set-Cookie:', ';');
+		
+		//GET Request
+		$ch = curl_init();
+		$numberofreturns=10;
+		curl_setopt($ch, CURLOPT_URL, "https://vartek.sysaidit.com/api/v1/sr/?limit=$numberofreturns&sort=insert_time&dir=desc&type=incident");                                                                
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Cookie: ' . $session));
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$result = curl_exec($ch);
+		curl_close ($ch);
+		
+		//Display Response
+		$json = json_decode($result,true);
+		
+		for ($x = 0; $x < $numberofreturns; $x++)
+		{
+			$submit_user = $json[$x]['info'][14]['valueCaption'];
+			$priority = $json[$x]['info'][25]['valueCaption'];
+			$problem_type = $json[$x]['info'][31]['valueCaption'];
+			$problem_sub_type = $json[$x]['info'][34]['valueCaption'];
+			$description = $json[$x]['info'][35]['valueCaption'];
+			$description=nl2br($description);
+			$insert_time = $json[$x]['info'][36]['valueCaption'];
+			$title = $json[$x]['info'][38]['valueCaption'];
+			$computer_id = $json[$x]['info'][57]['valueCaption'];
+			$assigned_group = $json[$x]['info'][71]['valueCaption'];
+			echo "<b>$title</b><br>$problem_type | $problem_sub_type<br>$submit_user<br>$insert_time<br>$priority<br>$description<br>$computer_id<br>$assigned_group<br><br>";
+		}
+		
 
 		echo "<div class='page_container page_container_limit mdl-shadow--4dp'>";
 		echo "<div class='page'>";
